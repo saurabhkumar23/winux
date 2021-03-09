@@ -29,15 +29,35 @@ const fs = require('fs');
         }
     }
 
-    str = str.split('\n')   //convert string to array based on new lines (vscode makes '' to \r)
+    str = str.split('\n')   //convert string to array based on new line (vscode makes '' to \r)
 
-    // -s 
+    // -s implementation
+    // NOTE - this operation must work before -n/-b if present, order doesn't matter, after then 
+    //         whichever comes first among -n or -b will execute by ignoring other.
     if(options.includes('-s')){
         str = trimLargeSpaces(str)
     }
 
-    str=str.join("\n")
-    console.log(str)
+    // -n and -b implementation
+    if(options.includes("-n") && options.includes("-b")){
+        if(options.indexOf("-n")>options.indexOf("-b")){       // if -b present before -n. then we ignore -n
+            str=addNonEmptyNum(str);   // -b 
+        }
+        else{
+            str= addAllNum(str);       // -n 
+        }
+    }else{
+        if(options.includes("-n")){
+            str= addAllNum(str);       // -n 
+
+        }
+        if(options.includes("-b")){
+            str=addNonEmptyNum(str);    // -b 
+        }
+    }
+
+    str = str.join("\n")
+    console.log(str)   
 
 })();
 
@@ -60,4 +80,26 @@ function trimLargeSpaces(arr){
         }
     }
     return temp
+}
+
+// -n implementation - add line numbers to all content
+function addAllNum(arr){
+    let lineNumber=1;
+    for(let i=0;i<arr.length;i++){
+        arr[i]=lineNumber+" "+arr[i];
+        lineNumber++;
+    }
+    return arr;
+}
+
+// -b implementation - add line numbers to non-empty content only
+function addNonEmptyNum(arr){
+    let lineNumber=1;
+    for(let i=0;i<arr.length;i++){
+        if(arr[i]!=="" && arr[i]!=="\r"){
+            arr[i]=lineNumber+" "+arr[i];
+            lineNumber++;
+        }
+    }
+    return arr;
 }
