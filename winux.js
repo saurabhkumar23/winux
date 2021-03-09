@@ -63,7 +63,7 @@ const fs = require('fs');
 
 })();
 
-// -s implementation - trim large spaces
+// -s implementation - To remove big line break.
 function trimLargeSpaces(arr){
     let temp = []
     let flag = false
@@ -84,7 +84,7 @@ function trimLargeSpaces(arr){
     return temp
 }
 
-// -n implementation - add line numbers to all content
+// -n implementation - To add line numbers to all lines.
 function addAllNum(arr){
     let lineNumber=1;
     for(let i=0;i<arr.length;i++){
@@ -94,7 +94,7 @@ function addAllNum(arr){
     return arr;
 }
 
-// -b implementation - add line numbers to non-empty content only
+// -b implementation - To add line numbers to non-empty lines.
 function addNonEmptyNum(arr){
     let lineNumber=1;
     for(let i=0;i<arr.length;i++){
