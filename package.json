@@ -1,0 +1,23 @@
+{
+  "name": "winux",
+  "version": "1.0.0",
+  "description": "A small project which allows us to run bash like commands on windows",
+  "main": "winux.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saurabhkumar23/winux.git"
+  },
+  "keywords": [
+    "bash",
+    "windows"
+  ],
+  "author": "Saurabh Kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saurabhkumar23/winux/issues"
+  },
+  "homepage": "https://github.com/saurabhkumar23/winux#readme"
+}
