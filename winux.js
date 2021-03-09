@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require('fs');
 
 (function(){
@@ -103,3 +105,10 @@ function addNonEmptyNum(arr){
     }
     return arr;
 }
+
+/*
+    how to make a nodejs script global?
+    ---> mention nodejs environment at the top of your script (add shebang - #!/usr/bin/env node)
+    ---> package.json - "bin": {"winux": "winux.js"}
+    ---> run npm link
+*/
