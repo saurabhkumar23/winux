@@ -15,8 +15,22 @@ const fs = require('fs');
         if(cmd[i].startsWith('-')){
             options.push(cmd[i])
         }
-        else{
+        else if(cmd[i].startsWith("*.")==false){
             files.push(cmd[i])
+        }
+    }
+
+    // push all files starting with *.
+    let currentFiles = fs.readdirSync(process.cwd())               //reading cwd files
+    for(let i=0;i<cmd.length;i++){
+        if(cmd[i].startsWith("*.")){
+            let ext = cmd[i].split(".").pop()
+            for(let j=0;j<currentFiles.length;j++){
+                let targetExt = currentFiles[j].split(".").pop()
+                if(ext==targetExt && files.includes(currentFiles[j])==false){
+                    files.push(currentFiles[j])
+                }
+            }
         }
     }
 
