@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "wincat": "wincat.js"
+    "wincat": "wincat.js",
+    "winwc": "winwc.js"
   },
   "repository": {
     "type": "git",
