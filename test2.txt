@@ -1,3 +1,0 @@
-this is the content of test2 file.
-
-It contains lots of data.
