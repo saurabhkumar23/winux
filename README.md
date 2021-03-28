@@ -116,3 +116,85 @@ It is used to find out number of lines, word count, characters count in the file
 #### 5) To print out the length of longest (number of characters) line in a file.
 ##### Command:
     winwc -L filename
+
+
+-----
+
+### wingrep Command:
+The wingrep filter searches a file for a particular pattern of characters, and displays all lines that contain that pattern. The pattern that is searched in the file is referred to as the regular expression (grep stands for globally search for regular expression and print out). 
+
+#### syntax
+    wingrep [options] pattern [files]
+
+Consider the below file as an input.
+
+> wincat > file.txt
+
+    unix is great os. unix is opensource. unix is free os.
+    learn operating system.
+    Unix linux which one you choose.
+    uNix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.
+
+#### 1) Case insensitive search
+##### Command:
+    wingrep -i pattern filename
+
+##### Input:
+    wingrep -i "UNix" file.txt
+
+##### Output:
+    unix is great os. unix is opensource. unix is free os.
+    Unix linux which one you choose.
+    uNix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.
+
+#### 2) Checking for the whole words in a file
+##### Command:
+    wingrep -w pattern filename
+
+##### Input:
+    wingrep -w "unix" file.txt
+
+##### Output:
+    unix is great os. unix is opensource. unix is free os.
+    uNix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.
+
+#### 3) Displaying the count of number of matches
+##### Command:
+    wingrep -c pattern filename
+
+##### Input:
+    wingrep -c "unix" file.txt
+
+##### Output:
+    2
+
+#### 4) Show line number while displaying the output
+##### Command:
+    wingrep -n pattern filename
+
+##### Input:
+    wingrep -n "unix" file.txt
+
+##### Output:
+    1 unix is great os. unix is opensource. unix is free os.
+    2 uNix is easy to learn.unix is a multiuser os.Learn unix .unix is a powerful.
+
+#### 5) Matching the lines that start with a string
+##### Command:
+    wingrep ^pattern filename
+
+##### Input:
+    wingrep "^unix" file.txt
+
+##### Output:
+    unix is great os. unix is opensource. unix is free os.
+
+#### 6) Matching the lines that end with a string 
+##### Command:
+    wingrep pattern$ filename
+
+##### Input:
+    wingrep "os.$" file.txt
+
+##### Output:
+    unix is great os. unix is opensource. unix is free os.
