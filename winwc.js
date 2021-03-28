@@ -8,7 +8,7 @@ const fs = require('fs');
 
     let options = []
     let files = []
-    let ans = []
+    let ans = []                  // represent the final result
 
     // filter out options and files
     for(let i=0;i<cmd.length;i++){
@@ -20,7 +20,7 @@ const fs = require('fs');
         }
     }
 
-    // push all files starting with *.
+    // push all files for *.
     let currentFiles = fs.readdirSync(process.cwd())               //reading cwd files
     for(let i=0;i<cmd.length;i++){
         if(cmd[i].startsWith("*.")){
@@ -34,17 +34,17 @@ const fs = require('fs');
         }
     }
 
-    // if options is empty, get all three.
+    // if options is empty, get all three (-l, -w, -m)
     if(options.length==0){
-        for(let j=0;j<files.length;j++){     // read from files
+        for(let j=0;j<files.length;j++){     
             let str = ''
             let data = []
             if(fs.existsSync(files[j])){    // file exist?
                 str = fs.readFileSync(files[j]).toString()    // read file
-                data.push(countLines(str))
-                data.push(countWords(str))
-                data.push(countChars(str))
-                data.push(files[j])
+                data.push(countLines(str))        // -l
+                data.push(countWords(str))        // -w
+                data.push(countChars(str))        // -m
+                data.push(files[j])          // push file name 
                 ans.push(data)
             }
             else{
@@ -53,31 +53,30 @@ const fs = require('fs');
             }
         }
         
-        if(ans.length>1){
+        if(ans.length>1){                     // if more than 1 file data, then show data in tabular form
             let lastRow = setLastRow(ans)
             ans.push(lastRow)
         }
     }
-    else{
-        for(let j=0;j<files.length;j++){     // read from files
+    else{                                  // else set result according to options
+        for(let j=0;j<files.length;j++){    
             let str = ''
             let data = []
             if(fs.existsSync(files[j])){    // file exist?
                 str = fs.readFileSync(files[j]).toString()    // read file
-                
-                if(options.includes('-l')){
+                if(options.includes('-l')){            // -l
                     data.push(countLines(str))
                 }
-                if(options.includes('-w')){
+                if(options.includes('-w')){            // -w
                     data.push(countWords(str))
                 }
-                if(options.includes('-m')){
+                if(options.includes('-m')){            // -m
                     data.push(countChars(str))
                 }
-                if(options.includes('-L')){
+                if(options.includes('-L')){            // -L
                     data.push(longestLine(str))
                 }
-                data.push(files[j])
+                data.push(files[j])                   // push file name
                 ans.push(data)
             }
             else{
@@ -85,7 +84,7 @@ const fs = require('fs');
                 return                                //cancel whole operation
             }
         }
-        if(ans.length>1){
+        if(ans.length>1){      // if more than 1 file data, then show data in tabular form
             let lastRow = setLastRow(ans)
             ans.push(lastRow)
         }
@@ -102,14 +101,14 @@ const fs = require('fs');
 
 })();
 
-// set last row
+// set last row for showing data in tabular form
 function setLastRow(ans){
     let n = ans[0].length;
     let lastRow = []
     for(let i=0;i<n-1;i++){
         let sum = 0
         for(let j=0;j<ans.length;j++){
-            sum += ans[j][i]
+            sum += ans[j][i]             // summing column wise
         }
         lastRow.push(sum)
     }
@@ -119,7 +118,7 @@ function setLastRow(ans){
 
 // -l - count lines
 function countLines(s){
-    s = s.split('\n')
+    s = s.split('\n')               // array containing per line data
     return s.length
 }
 
@@ -127,12 +126,12 @@ function countLines(s){
 function countWords(s){
     let words = 0;
     s = s.trim()
-    s = s.split("\r")
+    s = s.split("\r")               // array containing per line data
     for(let i=0;i<s.length;i++){
         let wordsPerLine = [];
-        wordsPerLine = s[i].split(' ');
+        wordsPerLine = s[i].split(' ')        // array containing each word
         for(let j=0;j<wordsPerLine.length;j++){
-            if(wordsPerLine[j] != '' && wordsPerLine[j] !='\n'){
+            if(wordsPerLine[j] != '' && wordsPerLine[j] !='\n'){  // if a word found
                 words++;
             }
         }
@@ -144,14 +143,14 @@ function countWords(s){
 function countChars(s){
     let chars = 0;
     s = s.trim()
-    s = s.split("\r")
+    s = s.split("\r")            // array containing per line data
     for(let i=0;i<s.length;i++){
         let wordsPerLine = [];
-        wordsPerLine = s[i].split(' ');
+        wordsPerLine = s[i].split(' ')          // array containing each word
         for(let j=0;j<wordsPerLine.length;j++){
             if(wordsPerLine[j] != '' && wordsPerLine[j] !='\n'){
-                chars += wordsPerLine[j].length;
-                if(wordsPerLine[j].length>1 && wordsPerLine[j].startsWith('\n')){
+                chars += wordsPerLine[j].length        // storing each word length
+                if(wordsPerLine[j].length>1 && wordsPerLine[j].startsWith('\n')){    // if word starts with \n (edge case)
                     chars--;
                 }
             }
@@ -160,13 +159,14 @@ function countChars(s){
     return chars;
 }
 
+// -L - longest line
 function longestLine(s){
     let words = 0;
     s = s.trim()
-    s = s.split("\r")
+    s = s.split("\r")           // array containing per line data
     let maxChars = 0;
     for(let i=0;i<s.length;i++){
-        let chars = s[i].startsWith('\n')==true ? s[i].length-1 : s[i].length;
+        let chars = s[i].startsWith('\n')==true ? s[i].length-1 : s[i].length     // length of line
         maxChars = Math.max(maxChars,chars);
     }
     return maxChars;

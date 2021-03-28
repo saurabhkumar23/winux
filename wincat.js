@@ -4,11 +4,11 @@ const fs = require('fs');
 
 (function(){
 
-    let cmd = process.argv.slice(2) //access command arguments
+    let cmd = process.argv.slice(2)     //access command arguments
     
-    let options = []
-    let files = []
-    let str = ''
+    let options = []           // will contains the options
+    let files = []             // will contains the files
+    let str = ''               // will represent the final output
 
     // filter out options and files
     for(let i=0;i<cmd.length;i++){
@@ -20,7 +20,7 @@ const fs = require('fs');
         }
     }
 
-    // push all files starting with *.
+    // push all files for *.
     let currentFiles = fs.readdirSync(process.cwd())               //reading cwd files
     for(let i=0;i<cmd.length;i++){
         if(cmd[i].startsWith("*.")){
@@ -47,16 +47,14 @@ const fs = require('fs');
 
     str = str.split('\n')   //convert string to array based on new line (vscode makes '' to \r)
 
-    // -s implementation
-    // NOTE - this operation must work before -n/-b if present, order doesn't matter, after then 
-    //         whichever comes first among -n or -b will execute by ignoring other.
+    // -s
     if(options.includes('-s')){
         str = trimLargeSpaces(str)
     }
 
-    // -n and -b implementation
+    // -n and -b 
     if(options.includes("-n") && options.includes("-b")){
-        if(options.indexOf("-n")>options.indexOf("-b")){       // if -b present before -n. then we ignore -n
+        if(options.indexOf("-b")<options.indexOf("-n")){       // if -b present before -n. then we ignore -n
             str=addNonEmptyNum(str);   // -b 
         }
         else{
@@ -73,11 +71,12 @@ const fs = require('fs');
     }
 
     str = str.join("\n")
-    console.log(str)   
+
+    console.log(str)            // final string result.
 
 })();
 
-// -s implementation - To remove big line break.
+// -s - to remove big line break.
 function trimLargeSpaces(arr){
     let temp = []
     let flag = false

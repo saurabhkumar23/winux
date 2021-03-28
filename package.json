@@ -8,7 +8,8 @@
   },
   "bin": {
     "wincat": "wincat.js",
-    "winwc": "winwc.js"
+    "winwc": "winwc.js",
+    "wingrep": "wingrep.js"
   },
   "repository": {
     "type": "git",
