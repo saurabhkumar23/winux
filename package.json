@@ -1,7 +1,7 @@
 {
   "name": "winux",
   "version": "1.0.0",
-  "description": "A small project which allows us to run bash like commands on windows",
+  "description": "A nodeJs script which allows us to run bash like commands on windows",
   "main": "winux.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,10 +17,13 @@
   },
   "keywords": [
     "bash",
-    "windows"
+    "windows",
+    "bash-commands",
+    "linux",
+    "nodejs"
   ],
   "author": "Saurabh Kumar",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/saurabhkumar23/winux/issues"
   },
